@@ -1,0 +1,36 @@
+version: "3.8"
+
+# See https://github.com/pi-hole/docker-pi-hole/
+# and https://docs.pi-hole.net/
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+#    network_mode: host
+    environment:
+      # ADMIN_EMAIL: "marc.leblanc2@gmail.com"
+      # DNSSEC: "true"
+      # PIHOLE_DNS_: 127.0.0.1;9.9.9.9
+      # REV_SERVER: "true"
+      # REV_SERVER_CIDR: "10.0.1.0/24"
+      # REV_SERVER_DOMAIN: "local"
+      # REV_SERVER_TARGET: "10.0.1.1"
+      # ServerIP: 10.0.1.2
+      TZ: 'America/Edmonton'
+      # VIRTUAL_HOST: "pi.local"
+      # WEBPASSWORD: 'HmMu32kHFOdcMD0TGker6ySOc2cA6Ru'
+    volumes:
+      - './etc-pihole/:/etc/pihole/'
+      - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    # cap_add:
+    #   - NET_ADMIN
+    restart: unless-stopped

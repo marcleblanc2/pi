@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  openwrt:
+    container_name: openwrt
+    image: oofnik/openwrt:19.07.5-bcm2708
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
+    restart: unless-stopped
